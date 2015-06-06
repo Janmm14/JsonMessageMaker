@@ -13,9 +13,9 @@ public class JsonMessageConverterTest {
 
     @Test
     public void test() {
-        final BaseComponent[] components = JsonMessageConverter.DEFAULT.convert("§aasdf [jmc|hover=suggests qwerta|jmc|suggest=qwerta]§bqwertzuiop[/jmc] " +
-                "[jmc|hover=runs /list|jmc|run=/list]§erun §c/list[/jmc] " +
-                "[jmc|hover=opens google|jmc|link=http://www.google.de]google§blink[/jmc]");
+        final BaseComponent[] components = JsonMessageConverter.DEFAULT.convert("§aasdf [jmm|hover=suggests qwerta|jmm|suggest=qwerta]§bqwertzuiop[/jmm] " +
+                "[jmm|hover=runs /list|jmm|run=/list]§erun §c/list[/jmm] " +
+                "[jmm|hover=opens google|jmm|link=http://www.google.de]google§blink[/jmm]");
         Assert.assertEquals("conversion not working correctly",
                 "{\"extra\":[{\"color\":\"green\",\"text\":\"asdf \"},{\"extra\":[{\"color\":\"aqua\",\"text\":\"qwertzuiop\"}],\"clickEvent\":{\"action\":" +
                         "\"suggest_command\",\"value\":\"qwerta\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":[\"suggests qwerta\"]},\"text\":\"\"},\"" +

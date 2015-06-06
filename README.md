@@ -9,3 +9,8 @@ Example input:
 `[jmc|hover=runs /list|jmc|run=/list]§erun §c/list[/jmc]`
 
 `[jmc|hover=opens google|jmc|link=http://www.google.de]google§blink[/jmc]`
+
+
+##Download
+http://ci.p.cubescape.net/job/public~JsonMessageMaker/
+##SpigotMC resource

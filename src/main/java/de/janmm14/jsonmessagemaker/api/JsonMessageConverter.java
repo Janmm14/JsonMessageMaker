@@ -15,8 +15,8 @@ import java.util.regex.Pattern;
 public class JsonMessageConverter {
 
     public static final JsonMessageConverter DEFAULT = new JsonMessageConverter(true, true, true, true);
-    private static final Pattern JMC_PATTERN = Pattern.compile("\\[jmc\\|(.+?)\\](.+?)\\[\\/jmc\\]", Pattern.CASE_INSENSITIVE);
-    private static final Pattern ARG_SPLIT_PATTERN = Pattern.compile("\\|[j][m][c]\\|", Pattern.CASE_INSENSITIVE);
+    private static final Pattern JMM_PATTERN = Pattern.compile("\\[jmm\\|(.+?)\\](.+?)\\[\\/jmm\\]", Pattern.CASE_INSENSITIVE);
+    private static final Pattern ARG_SPLIT_PATTERN = Pattern.compile("\\|jmm\\|", Pattern.CASE_INSENSITIVE);
 
     private final boolean hover;
     private final boolean run;
@@ -27,7 +27,7 @@ public class JsonMessageConverter {
     @NonNull
     public BaseComponent[] convert(@NonNull String input) {
         List<BaseComponent> components = new ArrayList<>();
-        final Matcher matcher = JMC_PATTERN.matcher(input);
+        final Matcher matcher = JMM_PATTERN.matcher(input);
         int lastEnd = 0;
         while (matcher.find()) {
             final String argsStr = matcher.group(1);
