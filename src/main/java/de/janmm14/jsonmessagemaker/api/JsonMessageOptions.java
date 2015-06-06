@@ -5,7 +5,7 @@ public final class JsonMessageOptions {
 
     private boolean hover = true;
     private boolean suggest = true;
-    private boolean insertion = true;
+    private boolean run = true;
     private boolean link = true;
 
     public boolean hover() {
@@ -16,8 +16,8 @@ public final class JsonMessageOptions {
         return suggest;
     }
 
-    public boolean insertion() {
-        return insertion;
+    public boolean run() {
+        return run;
     }
 
     public boolean link() {
@@ -34,8 +34,8 @@ public final class JsonMessageOptions {
         return this;
     }
 
-    public JsonMessageOptions insertion(boolean insertion) {
-        this.insertion = insertion;
+    public JsonMessageOptions run(boolean run) {
+        this.run = run;
         return this;
     }
 
@@ -45,6 +45,6 @@ public final class JsonMessageOptions {
     }
 
     public JsonMessageConverter create() {
-        return new JsonMessageConverter(hover, insertion, suggest, link);
+        return new JsonMessageConverter(hover, run, suggest, link);
     }
 }

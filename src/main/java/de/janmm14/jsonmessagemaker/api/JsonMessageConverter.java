@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.chat.*;
-import net.md_5.bungee.chat.ComponentSerializer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,10 +16,10 @@ public class JsonMessageConverter {
 
     public static final JsonMessageConverter DEFAULT = new JsonMessageConverter(true, true, true, true);
     private static final Pattern JMC_PATTERN = Pattern.compile("\\[jmc\\|(.+?)\\](.+?)\\[\\/jmc\\]", Pattern.CASE_INSENSITIVE);
-    private static final Pattern ARG_SPLIT_PATTERN = Pattern.compile("\\|[jJ][mM][cC]\\|");
+    private static final Pattern ARG_SPLIT_PATTERN = Pattern.compile("\\|[j][m][c]\\|", Pattern.CASE_INSENSITIVE);
 
     private final boolean hover;
-    private final boolean runcmd;
+    private final boolean run;
     private final boolean suggest;
     private final boolean link;
 
@@ -54,12 +53,12 @@ public class JsonMessageConverter {
                         }
                         break;
                     case "run":
-                        if (runcmd) {
+                        if (run) {
                             txt.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, val));
                         }
                         break;
                     case "link":
-                        if (runcmd) {
+                        if (link) {
                             txt.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, val));
                         }
                         break;

@@ -16,7 +16,7 @@ public class JsonMessageConverterTest {
         final BaseComponent[] components = JsonMessageConverter.DEFAULT.convert("§aasdf [jmc|hover=suggests qwerta|jmc|suggest=qwerta]§bqwertzuiop[/jmc] " +
                 "[jmc|hover=runs /list|jmc|run=/list]§erun §c/list[/jmc] " +
                 "[jmc|hover=opens google|jmc|link=http://www.google.de]google§blink[/jmc]");
-        Assert.assertEquals("serialization not working",
+        Assert.assertEquals("conversion not working correctly",
                 "{\"extra\":[{\"color\":\"green\",\"text\":\"asdf \"},{\"extra\":[{\"color\":\"aqua\",\"text\":\"qwertzuiop\"}],\"clickEvent\":{\"action\":" +
                         "\"suggest_command\",\"value\":\"qwerta\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":[\"suggests qwerta\"]},\"text\":\"\"},\"" +
                         " \",{\"extra\":[{\"color\":\"yellow\",\"text\":\"run \"},{\"color\":\"red\",\"text\":\"/list\"}],\"clickEvent\":" +

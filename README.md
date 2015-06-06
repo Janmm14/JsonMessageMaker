@@ -4,4 +4,8 @@ The input is a string, the output is an array of BaseComponents of net.md-5.bung
 
 Example input:
 
-`§a§lbold and light [hover=§bblue hover text shown if mouse is on green]green[/hover]`
+`§aasdf [jmc|suggest=qwerta]§bqwertzuiop[/jmc]`
+
+`[jmc|hover=runs /list|jmc|run=/list]§erun §c/list[/jmc]`
+
+`[jmc|hover=opens google|jmc|link=http://www.google.de]google§blink[/jmc]`
