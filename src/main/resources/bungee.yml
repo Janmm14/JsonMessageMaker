@@ -1,0 +1,5 @@
+name: ${project.name}
+version: ${project.version}-${env.BUILD_NUMBER}
+description: ${project.description}
+author: ${pluginyml.author}
+main: ${bungee.pluginyml.main}
