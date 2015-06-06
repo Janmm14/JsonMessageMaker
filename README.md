@@ -4,11 +4,11 @@ The input is a string, the output is an array of BaseComponents of net.md-5.bung
 
 Example input:
 
-`§aasdf [jmc|suggest=qwerta]§bqwertzuiop[/jmc]`
+`§aasdf [jmm|suggest=qwerta]§bqwertzuiop[/jmm]`
 
-`[jmc|hover=runs /list|jmc|run=/list]§erun §c/list[/jmc]`
+`[jmm|hover=runs /list|jmm|run=/list]§erun §c/list[/jmm]`
 
-`[jmc|hover=opens google|jmc|link=http://www.google.de]google§blink[/jmc]`
+`[jmm|hover=opens google|jmm|link=http://www.google.de]google§blink[/jmm]`
 
 
 ##Download
