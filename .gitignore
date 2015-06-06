@@ -1,0 +1,32 @@
+## Java
+*.class
+*.ear
+*.jar
+*.war
+
+## JetBrains
+.idea/
+.idea_modules/
+out/
+*.iml
+*.ipr
+*.iws
+
+## Linux
+.*
+!.gitattributes
+!.gitignore
+*~
+
+## Maven
+target/
+dependency-reduced-pom.xml
+
+
+## Windows
+$RECYCLE_BIN/
+Desktop.ini
+ehthumbs.db
+Thumbs.db
+
+# Built using https://github.com/github/gitignore/
