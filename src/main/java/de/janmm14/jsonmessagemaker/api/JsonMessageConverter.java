@@ -19,8 +19,9 @@ import lombok.RequiredArgsConstructor;
  * Basic class for conversion of strings to JsonMessages<br>
  * Class contains options of enabled features, for more information about these see {@link JsonMessageOptions}<br>
  * Objct creation is handled by {@link JsonMessageOptions}
- * @since v1.0-SNAPSHOT
+ *
  * @author Janmm14
+ * @since v1.0-SNAPSHOT
  */
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public final class JsonMessageConverter {
@@ -45,7 +46,7 @@ public final class JsonMessageConverter {
 	 * @return the converted message as {@link BaseComponent}
 	 */
 	@NonNull
-	public BaseComponent[] convert(@NonNull String input) {
+	public BaseComponent[] convert(@NonNull final String input) {
 		List<BaseComponent> components = new ArrayList<>();
 		final Matcher matcher = JMM_PATTERN.matcher(input);
 		int lastEnd = 0;
@@ -87,6 +88,10 @@ public final class JsonMessageConverter {
 			components.add(txt);
 
 			lastEnd = matcher.end();
+		}
+		if (lastEnd < (input.length() - 1)) {
+			final String after = input.substring(lastEnd, input.length());
+			components.addAll(Arrays.asList(TextComponent.fromLegacyText(after)));
 		}
 		return components.toArray(new BaseComponent[components.size()]);
 	}
