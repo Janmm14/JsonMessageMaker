@@ -11,6 +11,10 @@ Example input:
 `[jmm|hover=opens google|jmm|link=http://www.google.de]google§blink[/jmm]`
 
 
-##Download
+##Downloads
+By CI (continous integration), contains dev builds and old versions
+
 http://ci.p.cubescape.net/job/public~JsonMessageMaker/
+
 ##SpigotMC resource
+http://www.spigotmc.org/resources/jsonmessagemaker.7938/
