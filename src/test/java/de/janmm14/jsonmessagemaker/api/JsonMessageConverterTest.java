@@ -7,10 +7,6 @@ import org.junit.Test;
 
 public class JsonMessageConverterTest {
 
-    public static void main(String[] args) {
-        new JsonMessageConverterTest().test();
-    }
-
     @Test
     public void test() {
         final BaseComponent[] components = JsonMessageConverter.DEFAULT.convert("§aasdf [jmm|hover=suggests qwerta|jmm|suggest=qwerta]§bqwertzuiop[/jmm] " +
