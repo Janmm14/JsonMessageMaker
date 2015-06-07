@@ -11,14 +11,15 @@ public class JsonMessageConverterTest {
 	public void test() {
 		final BaseComponent[] components = JsonMessageConverter.DEFAULT.convert("§aasdf [jmm|hover=suggests qwerta|jmm|suggest=qwerta]§bqwertzuiop[/jmm] " +
 				"[jmm|hover=runs /list|jmm|run=/list]§erun §c/list[/jmm] " +
-				"[jmm|hover=opens google|jmm|link=http://www.google.de]google§blink[/jmm]");
+				"[jmm|hover=opens google|jmm|link=http://www.google.de]google§blink[/jmm] ENDE!");
 		Assert.assertEquals("conversion not working correctly",
-				"{\"extra\":[{\"color\":\"green\",\"text\":\"asdf \"},{\"extra\":[{\"color\":\"aqua\",\"text\":\"qwertzuiop\"}],\"clickEvent\":{\"action\":" +
-						"\"suggest_command\",\"value\":\"qwerta\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":[\"suggests qwerta\"]},\"text\":\"\"},\"" +
-						" \",{\"extra\":[{\"color\":\"yellow\",\"text\":\"run \"},{\"color\":\"red\",\"text\":\"/list\"}],\"clickEvent\":" +
-						"{\"action\":\"run_command\",\"value\":\"/list\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":[\"runs /list\"]},\"text\":\"\"}," +
-						"\" \",{\"extra\":[\"google\",{\"color\":\"aqua\",\"text\":\"link\"}],\"clickEvent\":{\"action\":\"open_url\",\"value\":\"http://www.google.de\"}," +
-						"\"hoverEvent\":{\"action\":\"show_text\",\"value\":[\"opens google\"]},\"text\":\"\"}],\"text\":\"\"}",
+				"{\"extra\":[{\"color\":\"green\",\"text\":\"asdf \"},{\"extra\":[{\"color\":\"aqua\",\"text\":\"qwertzuiop\"}]," +
+						"\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"qwerta\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":[\"suggests qwerta\"]}," +
+						"\"text\":\"\"},\" \",{\"extra\":[{\"color\":\"yellow\",\"text\":\"run \"},{\"color\":\"red\",\"text\":\"/list\"}]," +
+						"\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/list\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":[\"runs /list\"]}," +
+						"\"text\":\"\"},\" \",{\"extra\":[\"google\",{\"color\":\"aqua\",\"text\":\"link\"}]," +
+						"\"clickEvent\":{\"action\":\"open_url\",\"value\":\"http://www.google.de\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":[\"opens google\"]}," +
+						"\"text\":\"\"},\" ENDE!\"],\"text\":\"\"}",
 				ComponentSerializer.toString(components));
 	}
 }
