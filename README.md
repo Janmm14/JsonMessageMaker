@@ -14,7 +14,7 @@ Example input:
 ##Downloads
 By CI (continous integration), contains dev builds and old versions
 
-http://ci.p.cubescape.net/job/public~JsonMessageMaker/
+https://ci.janmm14.de/job/pubic~JsonMessageMaker/
 
 ##SpigotMC resource
 http://www.spigotmc.org/resources/jsonmessagemaker.7938/

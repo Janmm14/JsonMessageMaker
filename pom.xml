@@ -26,7 +26,6 @@
         <pluginyml.author>Janmm14</pluginyml.author>
         <bukkit.pluginyml.main>${project.groupId}.${project.artifactId}.bukkit.BukkitMain</bukkit.pluginyml.main>
         <bungee.pluginyml.main>${project.groupId}.${project.artifactId}.bungee.BungeeMain</bungee.pluginyml.main>
-        <env.BUILD_NUMBER>dev_build</env.BUILD_NUMBER>
     </properties>
 
     <developers>
@@ -65,6 +64,32 @@
         <connection>scm:git:git://github.com/Janmm14/JsonMessageMaker.git</connection>
         <developerConnection>scm:git:git@github.com:Janmm14/JsonMessageMaker.git</developerConnection>
     </scm>
+
+    <ciManagement>
+        <system>jenkins</system>
+        <url>https://ci.janmm14.de/job/public~JsonMessageMaker/</url>
+    </ciManagement>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/Janmm14/JsonMessageMaker/issues</url>
+    </issueManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>janmm14-everything</id>
+            <url>https://ci.janmm14.de/plugin/repository/everything/</url>
+        </repository>
+        <snapshotRepository>
+            <id>janmm14-everything</id>
+            <url>https://ci.janmm14.de/plugin/repository/everything/</url>
+        </snapshotRepository>
+        <site>
+            <id>janmm14-ci</id>
+            <url>https://ci.janmm14.de/job/public~JsonMessageMaker/</url>
+        </site>
+        <downloadUrl>https://ci.janmm14.de/job/public~JsonMessageMaker/</downloadUrl>
+    </distributionManagement>
 
     <repositories>
         <repository>
