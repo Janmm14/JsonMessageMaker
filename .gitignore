@@ -29,4 +29,7 @@ Desktop.ini
 ehthumbs.db
 Thumbs.db
 
+## KDiff3
+*.orig
+
 # Built using https://github.com/github/gitignore/
