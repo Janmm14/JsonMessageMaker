@@ -12,12 +12,6 @@ out/
 *.ipr
 *.iws
 
-## Linux
-.*
-!.gitattributes
-!.gitignore
-*~
-
 ## Maven
 target/
 dependency-reduced-pom.xml
