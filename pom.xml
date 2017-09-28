@@ -14,11 +14,6 @@
 
     <inceptionYear>2015</inceptionYear>
 
-    <organization>
-        <url>https://minotopia.me</url>
-        <name>MinoTopia</name>
-    </organization>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
@@ -32,13 +27,11 @@
         <developer>
             <id>janmm14</id>
             <name>Jan Marian Meyer</name>
-            <organization>MinoTopia</organization>
-            <organizationUrl>https://minotopia.me</organizationUrl>
             <roles>
                 <role>developer</role>
                 <role>administrator</role>
             </roles>
-            <email>janmarianmeyer@gmx.de</email>
+            <email>jsonmessagemaker_pom@janmm14.de</email>
             <timezone>1</timezone>
             <url>https://github.com/Janmm14</url>
         </developer>
@@ -47,13 +40,11 @@
     <contributors>
         <contributor>
             <name>Jan Marian Meyer (Janmm14)</name>
-            <organization>MinoTopia</organization>
-            <organizationUrl>https://minotopia.me</organizationUrl>
             <roles>
                 <role>developer</role>
                 <role>administrator</role>
             </roles>
-            <email>janmarianmeyer@gmx.de</email>
+            <email>jsonmessagemaker_pom@janmm14.de</email>
             <timezone>1</timezone>
             <url>https://github.com/Janmm14</url>
         </contributor>
@@ -77,12 +68,12 @@
 
     <distributionManagement>
         <repository>
-            <id>janmm14-everything</id>
-            <url>https://ci.janmm14.de/plugin/repository/everything/</url>
+            <id>janmm14-public</id>
+            <url>https://repo.janmm14.de/artifactory/public/</url>
         </repository>
         <snapshotRepository>
-            <id>janmm14-everything</id>
-            <url>https://ci.janmm14.de/plugin/repository/everything/</url>
+            <id>janmm14-public</id>
+            <url>https://repo.janmm14.de/artifactory/public/</url>
         </snapshotRepository>
         <site>
             <id>janmm14-ci</id>
