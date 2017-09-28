@@ -1,12 +1,12 @@
 package de.janmm14.jsonmessagemaker.api;
 
-@SuppressWarnings("unused")
 /**
  * class for easy setting of options for and creation of {@link JsonMessageConverter} objects
  *
- *  * @since v1.0-SNAPSHOT
  * @author Janmm14
+ * @since v1.0-SNAPSHOT
  */
+@SuppressWarnings("unused")
 public final class JsonMessageOptions {
 
 	private boolean hover = true;
@@ -44,6 +44,7 @@ public final class JsonMessageOptions {
 
 	/**
 	 * set whether the hover effect is activated, default is {@code true}
+	 *
 	 * @param hover the new activity state of the hover option
 	 * @return {@code this} object for chaining
 	 */
@@ -54,6 +55,7 @@ public final class JsonMessageOptions {
 
 	/**
 	 * set whether the allowing to suggest a command or chat on click is activated, default is {@code true}
+	 *
 	 * @param suggest the new activity state of the suggest option
 	 * @return {@code this} object for chaining
 	 */
@@ -64,6 +66,7 @@ public final class JsonMessageOptions {
 
 	/**
 	 * set whether the allowing to run a command or chat on click is activated, default is {@code true}
+	 *
 	 * @param run the new activity state of the run option
 	 * @return {@code this} object for chaining
 	 */
@@ -74,6 +77,7 @@ public final class JsonMessageOptions {
 
 	/**
 	 * set whether the availability to embed a link is activated, default is {@code true}
+	 *
 	 * @param link the new activity state of the link option
 	 * @return {@code this} object for chaining
 	 */

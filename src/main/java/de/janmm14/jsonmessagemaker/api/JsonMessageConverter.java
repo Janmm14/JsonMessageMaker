@@ -23,6 +23,7 @@ import lombok.RequiredArgsConstructor;
  * @author Janmm14
  * @since v1.0-SNAPSHOT
  */
+@SuppressWarnings("unused")
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public final class JsonMessageConverter {
 
