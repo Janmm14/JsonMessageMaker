@@ -39,7 +39,6 @@ public final class JsonMessageConverter {
 	private final boolean suggest;
 	private final boolean link;
 
-
 	/**
 	 * Converts strings to a json message using net.md-5:bungeecord-chat and uses the set options
 	 *
