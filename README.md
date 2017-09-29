@@ -47,17 +47,25 @@ JsonMessageConverter converter = new JsonMessageOptions().suggest(true).run(true
 
 Since v2.0 this plugin additionally provides an own command to send JMessages to players.
 
+Command Option | Description
+-------------- | -----------
+`/<command> <player> <jmessage>` | Sends the JMessage to the given player
+`/<command> perm:<permission> <jmessage>` | Sends the JMessage to all players with the given permission
+`/<command> :all <jmessage>` | Broadcasts the JMessage to all players
+
+### Spigot
 Command: `/jsonmessagemaker`
 
 Command Aliases: `/jmm`, `/jmsg`
 
 Permission: `jsonmessagemaker.command`
 
-Command Syntax | Description
--------------- | -----------
-`/jmsg <player> <jmessage>` | Sends the JMessage to the given player
-`/jmsg perm:<permission> <jmessage>` | Sends the JMessage to all players with the given permission
-`/jmsg :all <jmessage>` | Broadcasts the JMessage to all players
+### BungeeCord
+Command: `/bjsonmessagemaker`
+
+Command Aliases: `/bjmm`, `/bjmsg`
+
+Permission: `jsonmessagemaker.command`
 
 ## Downloads
 
