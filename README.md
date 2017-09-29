@@ -10,34 +10,54 @@ Many plugin authors and server administrators still use the old minecraft chat m
 
 JsonMessageMaker allows people to use the old minecraft chat message format with the new features with a simple format to add basic hover and click effects.
 
-The format to add any effects is `[jmm|*options*]chat text[/jmm]`
+The format to add any effects to a part of a chat text is `[jmm|*options*]chat text[/jmm]`
 
 Option | Action | Description
------- | --------------- | -----------
+------ | ------ | -----------
 `suggest=<suggestion>` | Click | `<suggestion>` will appear in the player chat text feld
 `run=<text>` | Click | Player will send `<text>`, commands are possible too
 `link=<url>` | Click | Player will be asked if he wants to open `<url>` in a browser
 `hover=<text>` | Hover | `<text>` will appear above the cursor if hovered by the mouse
 
-Example input | Example output
-------------- | --------------
-`§aasdf [jmm\|suggest=qwerta]§bqwertzuiop[/jmm]` | *coming soon*
-`[jmm\|hover=runs /list\|jmm\|run=/list]§erun §c/list[/jmm]` | *coming soon*
-`[jmm\|hover=opens google\|jmm\|link=http://www.google.de]google§blink[/jmm]` | *coming soon*
+To add multiple options for chat text use `|jmm|` as deliminter. Please note that you can of course just add one possible option per action.
+
+Here are some example JMessages:
+
+- `§aasdf [jmm|suggest=qwerta]§bqwertzuiop[/jmm]`
+- `[jmm|hover=runs /list|jmm|run=/list]§erun §c/list[/jmm]`
+- `[jmm|hover=opens google|jmm|link=http://www.google.de]google§blink[/jmm]`
+
+## API
+
+The base feature of JsonMessageMaker is to provide an API which other plugins can use to convert for example configuration strings using the JMessage format to an array of BaseComponents, ready to get sent via the spigot or bungee api.
+
+Baisc API usage:
+
+```java
+BaseComponent[] components = JsonMessageConverter.DEFAULT.convert(yourJMessage);
+```
+
+The API provides the option to disable certain features of the jmessage format. The default converter (see above) has all features enabled. If you want to havecertain features disabled, you need to ccreate your own JsonMessageConverter through the JsonMesssageOption class.
+
+```java
+JsonMessageConverter converter = new JsonMessageOptions().suggest(true).run(true).link(true).hover(true).create();
+```
 
 ## Command
 
-This plugin provides an own command to send jmessages to players.
+Since v2.0 this plugin additionally provides an own command to send JMessages to players.
 
 Command: `/jsonmessagemaker`
+
 Command Aliases: `/jmm`, `/jmsg`
+
 Permission: `jsonmessagemaker.command`
 
 Command Syntax | Description
 -------------- | -----------
-`/jmsg <player> <jmessage>` | Sends the jmessage to the given player
-`/jmsg perm:<permission> <jmessage>` | Sends the jmessage to all players with the given permission
-`/jmsg :all <jmessage>` | Broadcasts the jmessage to all players
+`/jmsg <player> <jmessage>` | Sends the JMessage to the given player
+`/jmsg perm:<permission> <jmessage>` | Sends the JMessage to all players with the given permission
+`/jmsg :all <jmessage>` | Broadcasts the JMessage to all players
 
 ## Downloads
 
@@ -45,7 +65,28 @@ Command Syntax | Description
 
 All release versions will be uploaded to this spigotmc resource: https://www.spigotmc.org/resources/jsonmessagemaker.7938/
 
-## Development versions
+### Development versions
 
 You can download indev versions from my jenkins server: https://ci.janmm14.de/job/pubic~JsonMessageMaker/
 
+### Maven repository
+
+JsonMessageMaker is deployed to my own maven repository:
+
+```xml
+    <repositories>
+        <repository>
+            <id>janmm14-public</id>
+            <url>https://repo.janmm14.de/artifactory/public/</url>
+        </repository>
+    </repositories>
+```
+```xml
+    <dependencies>
+        <dependency>
+            <groupId>de.janmm14</groupId>
+            <artifactId>jsonmessagemaker</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+```
