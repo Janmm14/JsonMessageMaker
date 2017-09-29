@@ -74,8 +74,8 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 	private static void sendHelp(UniversalSender sender, String alias) {
 		sender.sendMessage("§5 §m============§6 JsonMessageMaker §eHelp §5§m============");
 		sender.sendMessage("§c/" + alias + " <player> <jmessage>§7 - §6Sends the jmessage to the given player");
-		sender.sendMessage("§c/" + alias + " perm:<permission> <jmessage>§7 - §6Sends the jmessage to the given player");
-		sender.sendMessage("§c/" + alias + " :all <jmessage>§7 - §6Broadcasts a jmessage to all players");
+		sender.sendMessage("§c/" + alias + " perm:<permission> <jmessage>§7 - §6Sends the jmessage to all players with the given permission");
+		sender.sendMessage("§c/" + alias + " :all <jmessage>§7 - §6Broadcasts the jmessage to all players");
 	}
 
 	private static String joinArgs(String[] args, int start) {
