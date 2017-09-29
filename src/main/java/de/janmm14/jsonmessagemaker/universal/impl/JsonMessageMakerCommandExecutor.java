@@ -3,6 +3,7 @@ package de.janmm14.jsonmessagemaker.universal.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 
 import de.janmm14.jsonmessagemaker.api.JsonMessageConverter;
@@ -28,7 +29,8 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 			if (player == null) {
 				return;
 			}
-			player.sendMessage(JsonMessageConverter.DEFAULT.convert(joinArgs(args, 1)));
+			BaseComponent[] message = translateAmpColorCharAndConvertMessage(joinArgs(args, 1));
+			player.sendMessage(message);
 
 		} else if (target.length == 2) {
 			Collection<UniversalSender> recievers = new ArrayList<>();
@@ -52,7 +54,7 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 					sender.sendMessage("§4Unknown reciever §6" + args[0]);
 					return;
 			}
-			BaseComponent[] convertedMessage = JsonMessageConverter.DEFAULT.convert(joinArgs(args, 1));
+			BaseComponent[] convertedMessage = translateAmpColorCharAndConvertMessage(joinArgs(args, 1));
 
 			for (UniversalSender reciever : recievers) {
 				reciever.sendMessage(convertedMessage);
@@ -62,10 +64,14 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 		}
 	}
 
-	private UniversalSender getPlayerOrSendError(UniversalSender sender, String plrName) {
-		UniversalSender player = getPlatformAccess().getPlayer(plrName);
+	private static BaseComponent[] translateAmpColorCharAndConvertMessage(String message) {
+		return JsonMessageConverter.DEFAULT.convert(ChatColor.translateAlternateColorCodes('&', message));
+	}
+
+	private UniversalSender getPlayerOrSendError(UniversalSender sender, String targetPlrName) {
+		UniversalSender player = getPlatformAccess().getPlayer(targetPlrName);
 		if (player == null) {
-			sender.sendMessage("§4Player §6" + plrName + "§4 not found");
+			sender.sendMessage("§4Player §6" + targetPlrName + "§4 not found");
 			return null;
 		}
 		return player;
