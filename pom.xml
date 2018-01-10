@@ -68,12 +68,12 @@
 
     <distributionManagement>
         <repository>
-            <id>janmm14-public</id>
-            <url>https://repo.janmm14.de/artifactory/public/</url>
+            <id>janmm14-public-releases</id>
+            <url>https://repo.janmm14.de/artifactory/public-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>janmm14-public</id>
-            <url>https://repo.janmm14.de/artifactory/public/</url>
+            <id>janmm14-public-snapshots</id>
+            <url>https://repo.janmm14.de/artifactory/public-snapshots/</url>
         </snapshotRepository>
         <site>
             <id>janmm14-ci</id>
