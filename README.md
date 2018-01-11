@@ -1,4 +1,4 @@
-# JsonMessageMaker [![Build Status](https://ci.janmm14.de/job/public~jsonmessagemaker/badge/icon)](https://ci.janmm14.de/job/public~jsonmessagemaker)
+# JsonMessageMaker [![Build Status](http://s.janmm14.de/jsonmessagemaker-build-status)](http://s.janmm14.de/jsonmessagemaker-ci)
 
 A plugin for the minecraft server implementation [Spigot](https://www.spigotmc.org/) and the minecraft proxy [BungeeCord](https://github.com/SpigotMC/BungeeCord), with an API for other plugins.
 
