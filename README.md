@@ -75,7 +75,7 @@ All release versions will be uploaded to this spigotmc resource: https://www.spi
 
 ### Development versions
 
-You can download indev versions from my jenkins server: https://ci.janmm14.de/job/public~JsonMessageMaker/
+You can download indev versions from my jenkins server: https://s.janmm14.de/jsonmessagemakerci
 
 ### Maven repository
 
