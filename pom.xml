@@ -58,7 +58,7 @@
 
     <ciManagement>
         <system>jenkins</system>
-        <url>https://ci.janmm14.de/job/public~JsonMessageMaker/</url>
+        <url>https://s.janmm14.de/jsonmessagemakerci</url>
     </ciManagement>
 
     <issueManagement>
@@ -77,9 +77,9 @@
         </snapshotRepository>
         <site>
             <id>janmm14-ci</id>
-            <url>https://ci.janmm14.de/job/public~JsonMessageMaker/</url>
+            <url>https://s.janmm14.de/jsonmessagemakerci</url>
         </site>
-        <downloadUrl>https://ci.janmm14.de/job/public~JsonMessageMaker/</downloadUrl>
+        <downloadUrl>https://s.janmm14.de/jsonmessagemakerci</downloadUrl>
     </distributionManagement>
 
     <repositories>
