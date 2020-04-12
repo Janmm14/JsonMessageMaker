@@ -33,7 +33,11 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 			return;
 		}
 		final String[] target = args[0].split(":");
-		if (sendToBungeeOption && target.length > 1 && target[0].isEmpty() && target[1].equals("bungee")) {
+		if (target.length > 1 && target[0].isEmpty() && target[1].equals("bungee")) {
+			if (!sendToBungeeOption) {
+				sender.sendMessage("§6sendToBungeeOption§4 not enabled in JsonMessageMaker/config.yml §7(spigot-only option)");
+				return;
+			}
 			final String toSend = args[0].substring(":bungee:".length()) + ' ' + joinArgs(args, 1);
 			if (!getPlatformAccess().sendPluginMessage(toSend)) {
 				sender.sendMessage("§4Could not send plugin message.");
