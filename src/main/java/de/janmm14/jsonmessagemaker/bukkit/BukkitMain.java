@@ -11,7 +11,16 @@ public class BukkitMain extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		final JsonMessageMakerCommandExecutor commandExecutor = new JsonMessageMakerCommandExecutor(new BukkitPlatformAccess(getServer()));
+		getConfig().options().copyDefaults(true);
+		getConfig().addDefault("sendToBungeeOption", false);
+		saveConfig();
+
+		final boolean sendToBungeeOption = getConfig().getBoolean("sendToBungeeOption");
+		if (sendToBungeeOption) {
+			getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+		}
+
+		JsonMessageMakerCommandExecutor commandExecutor = new JsonMessageMakerCommandExecutor(new BukkitPlatformAccess(getServer(), this), sendToBungeeOption);
 
 		getCommand("jsonmessagemaker").setExecutor(new BukkitCommandBridge(commandExecutor));
 	}

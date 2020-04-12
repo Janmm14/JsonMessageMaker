@@ -2,19 +2,28 @@ package de.janmm14.jsonmessagemaker.universal.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 
 import de.janmm14.jsonmessagemaker.api.JsonMessageConverter;
+import de.janmm14.jsonmessagemaker.bungee.universalimpl.BungeePlatformAccess;
 import de.janmm14.jsonmessagemaker.universal.PlatformAccess;
 import de.janmm14.jsonmessagemaker.universal.UniversalCommandExecutor;
 import de.janmm14.jsonmessagemaker.universal.UniversalSender;
 
 public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 
-	public JsonMessageMakerCommandExecutor(PlatformAccess platformAccess) {
+	private static final Pattern BUNGEE_PLAYER_SERVER_PLACEHOLDER_PATTERN = Pattern.compile(Pattern.quote("(((serverof:") + "(.+)" + Pattern.quote(")))"), Pattern.CASE_INSENSITIVE);
+
+	private final boolean sendToBungeeOption;
+
+	public JsonMessageMakerCommandExecutor(PlatformAccess platformAccess, boolean sendToBungeeOption) {
 		super(platformAccess);
+		this.sendToBungeeOption = sendToBungeeOption;
 	}
 
 	@Override
@@ -23,13 +32,20 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 			sendHelp(sender, alias);
 			return;
 		}
-		String[] target = args[0].split(":");
+		final String[] target = args[0].split(":");
+		if (sendToBungeeOption && target.length > 1 && target[0].isEmpty() && target[1].equals("bungee")) {
+			final String toSend = args[0].substring(":bungee:".length()) + ' ' + joinArgs(args, 1);
+			if (!getPlatformAccess().sendPluginMessage(toSend)) {
+				sender.sendMessage("§4Could not send plugin message.");
+			}
+			return;
+		}
 		if (target.length == 1) {
-			UniversalSender player = getPlayerOrSendError(sender, target[0]);
+			final UniversalSender player = getPlayerOrSendError(sender, target[0]);
 			if (player == null) {
 				return;
 			}
-			BaseComponent[] message = translateAmpColorCharAndConvertMessage(joinArgs(args, 1));
+			final BaseComponent[] message = translateAmpColorCharAndConvertMessage(joinArgs(args, 1));
 			player.sendMessage(message);
 
 		} else if (target.length == 2) {
@@ -54,9 +70,9 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 					sender.sendMessage("§4Unknown reciever §6" + args[0]);
 					return;
 			}
-			BaseComponent[] convertedMessage = translateAmpColorCharAndConvertMessage(joinArgs(args, 1));
+			final BaseComponent[] convertedMessage = translateAmpColorCharAndConvertMessage(joinArgs(args, 1));
 
-			for (UniversalSender reciever : recievers) {
+			for (final UniversalSender reciever : recievers) {
 				reciever.sendMessage(convertedMessage);
 			}
 		} else {
@@ -64,12 +80,12 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 		}
 	}
 
-	private static BaseComponent[] translateAmpColorCharAndConvertMessage(String message) {
-		return JsonMessageConverter.DEFAULT.convert(ChatColor.translateAlternateColorCodes('&', message));
+	private BaseComponent[] translateAmpColorCharAndConvertMessage(String message) {
+		return JsonMessageConverter.DEFAULT.convert(convertBungeePlayerServerPlaceholder(ChatColor.translateAlternateColorCodes('&', message)));
 	}
 
 	private UniversalSender getPlayerOrSendError(UniversalSender sender, String targetPlrName) {
-		UniversalSender player = getPlatformAccess().getPlayer(targetPlrName);
+		final UniversalSender player = getPlatformAccess().getPlayer(targetPlrName);
 		if (player == null) {
 			sender.sendMessage("§4Player §6" + targetPlrName + "§4 not found");
 			return null;
@@ -77,18 +93,69 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 		return player;
 	}
 
+	private String convertBungeePlayerServerPlaceholder(String input) {
+		if (!(getPlatformAccess() instanceof BungeePlatformAccess)) {
+			System.out.println("not bungee");
+			return input;
+		}
+		System.out.println("bungeeplayerserverplaceholder start");
+		final Matcher matcher = BUNGEE_PLAYER_SERVER_PLACEHOLDER_PATTERN.matcher(input);
+		final StringBuffer sb = new StringBuffer((int) (input.length() * 1.2));
+		while (matcher.find()) {
+			final String in = matcher.group(1);
+			System.out.println("matcher find, group: " + in);
+			UniversalSender user = null;
+			if (in.length() == 8 + 1 + 4 + 1 + 4 + 1 + 4 + 1 + 12) { //length of dashed uuid
+				try {
+					user = getPlatformAccess().getPlayer(UUID.fromString(in));
+				} catch (IllegalArgumentException ex) {
+					ex.printStackTrace();
+				}
+			} else if (in.length() == 8 + 4 + 4 + 4 + 12) { //length of not dashed uuid
+				try {
+					user = getPlatformAccess().getPlayer(getUUIDFromNonDashedString(in));
+				} catch (IllegalArgumentException ex) {
+					ex.printStackTrace();
+				}
+			} else {
+				user = getPlatformAccess().getPlayer(in);
+			}
+			System.out.println("user: " + user);
+			if (user != null) {
+				final String bungeeServerName = user.getBungeeServerName();
+				System.out.println("bungeeServerName: " + bungeeServerName);
+				if (bungeeServerName != null) {
+					matcher.appendReplacement(sb, bungeeServerName);
+				} else {
+					matcher.appendReplacement(sb, in);
+				}
+			} else {
+				matcher.appendReplacement(sb, in);
+			}
+		}
+		matcher.appendTail(sb);
+		return sb.toString();
+	}
+
 	private static void sendHelp(UniversalSender sender, String alias) {
 		sender.sendMessage("§5 §m============§6 JsonMessageMaker §eHelp §5§m============");
 		sender.sendMessage("§c/" + alias + " <player> <jmessage>§7 - §6Sends the jmessage to the given player");
 		sender.sendMessage("§c/" + alias + " perm:<permission> <jmessage>§7 - §6Sends the jmessage to all players with the given permission");
 		sender.sendMessage("§c/" + alias + " :all <jmessage>§7 - §6Broadcasts the jmessage to all players");
+		sender.sendMessage("§c/" + alias + " :bungee:<player> <jmessage>§7 - §6Sends the jmessage to the given player somewhere on your bungee");
+		sender.sendMessage("§c/" + alias + " :bungee:perm:<permission> <jmessage>§7 - §6Sends the jmessage to all players on bungee with the given permission");
+		sender.sendMessage("§c/" + alias + " :bungee::all <jmessage>§7 - §6Broadcasts the jmessage to all players on bungee");
 	}
 
 	private static String joinArgs(String[] args, int start) {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		for (int i = start; i < args.length; i++) {
 			sb.append(args[i]).append(' ');
 		}
 		return sb.substring(0, sb.length() - 1);
+	}
+
+	private static UUID getUUIDFromNonDashedString(String uuid) {
+		return UUID.fromString(uuid.substring(0, 8) + '-' + uuid.substring(8, 12) + '-' + uuid.substring(12, 16) + '-' + uuid.substring(16, 20) + '-' + uuid.substring(20, 32));
 	}
 }

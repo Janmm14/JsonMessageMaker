@@ -3,6 +3,8 @@ package de.janmm14.jsonmessagemaker.bukkit.universalimpl;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 
+import javax.annotation.Nullable;
+
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 
@@ -43,5 +45,11 @@ public class BukkitCommandSender implements UniversalSender {
 	@Override
 	public void sendMessage(BaseComponent... msg) {
 		sender.sendMessage(TextComponent.toLegacyText(msg));
+	}
+
+	@Nullable
+	@Override
+	public String getBungeeServerName() {
+		return null;
 	}
 }
