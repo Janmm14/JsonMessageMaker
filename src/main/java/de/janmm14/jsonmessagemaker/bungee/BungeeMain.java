@@ -46,7 +46,6 @@ public class BungeeMain extends Plugin implements Listener {
 			final String subChannel = in.readUTF();
 			if ("JsonMessageMakerBungee".equals(subChannel)) {
 				final String message = in.readUTF();
-				System.out.println("Recieved message: " + message);
 				commandExecutor.executeCommand(commandExecutor.getPlatformAccess().getConsole(), "bjsonmessagemaker", message.split(" "));
 			}
 		}

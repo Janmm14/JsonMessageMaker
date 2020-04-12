@@ -95,15 +95,12 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 
 	private String convertBungeePlayerServerPlaceholder(String input) {
 		if (!(getPlatformAccess() instanceof BungeePlatformAccess)) {
-			System.out.println("not bungee");
 			return input;
 		}
-		System.out.println("bungeeplayerserverplaceholder start");
 		final Matcher matcher = BUNGEE_PLAYER_SERVER_PLACEHOLDER_PATTERN.matcher(input);
 		final StringBuffer sb = new StringBuffer((int) (input.length() * 1.2));
 		while (matcher.find()) {
 			final String in = matcher.group(1);
-			System.out.println("matcher find, group: " + in);
 			UniversalSender user = null;
 			if (in.length() == 8 + 1 + 4 + 1 + 4 + 1 + 4 + 1 + 12) { //length of dashed uuid
 				try {
@@ -120,10 +117,8 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 			} else {
 				user = getPlatformAccess().getPlayer(in);
 			}
-			System.out.println("user: " + user);
 			if (user != null) {
 				final String bungeeServerName = user.getBungeeServerName();
-				System.out.println("bungeeServerName: " + bungeeServerName);
 				if (bungeeServerName != null) {
 					matcher.appendReplacement(sb, bungeeServerName);
 				} else {
