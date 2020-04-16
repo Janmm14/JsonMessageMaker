@@ -41,6 +41,7 @@ public class BungeeMain extends Plugin implements Listener {
 		dataFolder.mkdirs();
 		try {
 			final File configFile = new File(dataFolder, "config.yml");
+			configFile.createNewFile();
 			config = provider.load(configFile);
 			if (config.get("debug") == null) {
 				config.set("debug", false);
