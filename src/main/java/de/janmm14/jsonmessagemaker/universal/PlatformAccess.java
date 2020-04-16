@@ -2,6 +2,7 @@ package de.janmm14.jsonmessagemaker.universal;
 
 import java.util.Collection;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public interface PlatformAccess {
 
@@ -14,4 +15,8 @@ public interface PlatformAccess {
 	UniversalSender getConsole();
 
 	boolean sendPluginMessage(String command);
+	
+	boolean isDebug();
+	
+	Logger getLogger();
 }

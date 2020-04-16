@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import de.janmm14.jsonmessagemaker.universal.PlatformAccess;
 import de.janmm14.jsonmessagemaker.universal.UniversalSender;
@@ -20,6 +21,7 @@ public class BukkitPlatformAccess implements PlatformAccess {
 	private final Server server;
 	private final BukkitCommandSender bukkitCommandSender;
 	private final JavaPlugin plugin;
+	private Boolean debug;
 
 	public BukkitPlatformAccess(Server server, JavaPlugin plugin) {
 		this.server = server;
@@ -70,8 +72,20 @@ public class BukkitPlatformAccess implements PlatformAccess {
 			plugin.getLogger().warning("Could not send message to bungee, because no player is online: " + message);
 			return false;
 		}
-		System.out.println("sending message via " + player.getName() + " to bungee: " + message);
+		if (isDebug()) {
+			plugin.getLogger().info("sending message via " + player.getName() + " to bungee: " + message);
+		}
 		player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
 		return true;
+	}
+
+	@Override
+	public boolean isDebug() {
+		return debug == null ? debug = plugin.getConfig().getBoolean("debug") : debug;
+	}
+
+	@Override
+	public Logger getLogger() {
+		return plugin.getLogger();
 	}
 }

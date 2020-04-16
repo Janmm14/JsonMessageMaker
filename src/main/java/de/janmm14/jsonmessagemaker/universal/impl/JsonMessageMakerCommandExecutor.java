@@ -103,7 +103,7 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 			return input;
 		}
 		final Matcher matcher = BUNGEE_PLAYER_SERVER_PLACEHOLDER_PATTERN.matcher(input);
-		final StringBuffer sb = new StringBuffer((int) (input.length() * 1.2));
+		final StringBuffer sb = new StringBuffer(input.length());
 		while (matcher.find()) {
 			final String in = matcher.group(1);
 			UniversalSender user = null;
@@ -127,9 +127,15 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 				if (bungeeServerName != null) {
 					matcher.appendReplacement(sb, bungeeServerName);
 				} else {
+					if (getPlatformAccess().isDebug()) {
+						getPlatformAccess().getLogger().warning("Could not find server name for " + user.getName() + ", definion in msg: " + in + ", message " + input);
+					}
 					matcher.appendReplacement(sb, in);
 				}
 			} else {
+				if (getPlatformAccess().isDebug()) {
+					getPlatformAccess().getLogger().warning("Could not find user: " + in + " in message: " + input);
+				}
 				matcher.appendReplacement(sb, in);
 			}
 		}
