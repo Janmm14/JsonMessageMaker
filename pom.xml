@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <name>JsonMessageMaker</name>
-    <description>JsonMessageMaker is an API for other spigot plugins allowing easy creation of json messages in minecraft from a string</description>
+    <description>JsonMessageMaker is an API for other spigot or bungee plugins allowing easy creation of json messages in minecraft from a string</description>
 
     <inceptionYear>2015</inceptionYear>
 
