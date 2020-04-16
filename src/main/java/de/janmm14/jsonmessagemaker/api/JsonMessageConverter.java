@@ -46,7 +46,8 @@ public final class JsonMessageConverter {
 	 * @return the converted message as {@link BaseComponent}
 	 */
 	@NonNull
-	public BaseComponent[] convert(@NonNull final String input) {
+	public BaseComponent[] convert(@NonNull String input) {
+		input = input.replace("\\n", "\n");
 		List<BaseComponent> components = new ArrayList<>();
 		final Matcher matcher = JMM_PATTERN.matcher(input);
 		int lastEnd = 0;
@@ -93,6 +94,6 @@ public final class JsonMessageConverter {
 			final String after = input.substring(lastEnd, input.length());
 			components.addAll(Arrays.asList(TextComponent.fromLegacyText(after)));
 		}
-		return components.toArray(new BaseComponent[components.size()]);
+		return components.toArray(new BaseComponent[0]);
 	}
 }
