@@ -17,7 +17,7 @@ import de.janmm14.jsonmessagemaker.universal.UniversalSender;
 
 public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 
-	private static final Pattern BUNGEE_PLAYER_SERVER_PLACEHOLDER_PATTERN = Pattern.compile(Pattern.quote("(((serverof:") + "(.+)" + Pattern.quote(")))"),
+	private static final Pattern BUNGEE_PLAYER_SERVER_PLACEHOLDER_PATTERN = Pattern.compile(Pattern.quote("(((serverof:") + "(.+?)" + Pattern.quote(")))"),
 			Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 
 	private final boolean sendToBungeeOption;
