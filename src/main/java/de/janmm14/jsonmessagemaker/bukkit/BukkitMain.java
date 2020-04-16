@@ -14,6 +14,7 @@ public class BukkitMain extends JavaPlugin {
 	public void onEnable() {
 		getConfig().options().copyDefaults(true);
 		getConfig().addDefault("sendToBungeeOption", false);
+		getConfig().addDefault("debug", false);
 		saveConfig();
 
 		final boolean sendToBungeeOption = getConfig().getBoolean("sendToBungeeOption");
