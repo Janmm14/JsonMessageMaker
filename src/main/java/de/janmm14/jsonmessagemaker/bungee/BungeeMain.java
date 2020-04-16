@@ -18,6 +18,7 @@ import net.md_5.bungee.event.EventHandler;
 
 import de.janmm14.jsonmessagemaker.bungee.universalimpl.BungeeCommandBridge;
 import de.janmm14.jsonmessagemaker.bungee.universalimpl.BungeePlatformAccess;
+import de.janmm14.jsonmessagemaker.universal.Constants;
 import de.janmm14.jsonmessagemaker.universal.impl.JsonMessageMakerCommandExecutor;
 
 import lombok.Getter;
@@ -65,10 +66,10 @@ public class BungeeMain extends Plugin implements Listener {
 
 	@EventHandler
 	public void onPluginMessage(PluginMessageEvent event) {
-		if ("BungeeCord".equals(event.getTag())) {
+		if (Constants.PLUGIN_MESSAGING_CHANNEL_BUNGEE.equals(event.getTag())) {
 			final ByteArrayDataInput in = ByteStreams.newDataInput(event.getData());
 			final String subChannel = in.readUTF();
-			if ("JsonMessageMakerBungee".equals(subChannel)) {
+			if (Constants.PLUGIN_MESSAGING_SUBCHANNEL_NAME.equals(subChannel)) {
 				final String message = in.readUTF();
 				commandExecutor.executeCommand(commandExecutor.getPlatformAccess().getConsole(), "bjsonmessagemaker", message.split(" "));
 				event.setCancelled(true);

@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import de.janmm14.jsonmessagemaker.universal.Constants;
 import de.janmm14.jsonmessagemaker.universal.PlatformAccess;
 import de.janmm14.jsonmessagemaker.universal.UniversalSender;
 
@@ -65,7 +66,7 @@ public class BukkitPlatformAccess implements PlatformAccess {
 	@Override
 	public boolean sendPluginMessage(String message) {
 		final ByteArrayDataOutput out = ByteStreams.newDataOutput();
-		out.writeUTF("JsonMessageMakerBungee");
+		out.writeUTF(Constants.PLUGIN_MESSAGING_SUBCHANNEL_NAME);
 		out.writeUTF(message);
 		final Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
 		if (player == null) {
@@ -75,7 +76,7 @@ public class BukkitPlatformAccess implements PlatformAccess {
 		if (isDebug()) {
 			plugin.getLogger().info("sending message via " + player.getName() + " to bungee: " + message);
 		}
-		player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+		player.sendPluginMessage(plugin, Constants.PLUGIN_MESSAGING_CHANNEL_BUNGEE, out.toByteArray());
 		return true;
 	}
 
