@@ -31,8 +31,8 @@ public final class JsonMessageConverter {
 	 * the converter with the default options, for more information see {@link JsonMessageOptions}
 	 */
 	public static final JsonMessageConverter DEFAULT = new JsonMessageConverter(true, true, true, true);
-	private static final Pattern JMM_PATTERN = Pattern.compile("\\[jmm\\|(.+?)\\](.+?)\\[\\/jmm\\]", Pattern.CASE_INSENSITIVE);
-	private static final Pattern ARG_SPLIT_PATTERN = Pattern.compile("\\|jmm\\|", Pattern.CASE_INSENSITIVE);
+	private static final Pattern JMM_PATTERN = Pattern.compile("\\[jmm\\|(.+?)\\](.+?)\\[\\/jmm\\]", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+	private static final Pattern ARG_SPLIT_PATTERN = Pattern.compile("|jmm|", Pattern.CASE_INSENSITIVE | Pattern.LITERAL);
 
 	private final boolean hover;
 	private final boolean run;
