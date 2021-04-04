@@ -1,98 +1,63 @@
 package de.janmm14.jsonmessagemaker.api;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
 /**
- * class for easy setting of options for and creation of {@link JsonMessageConverter} objects
+ * Class to set options for and create {@link JsonMessageConverter} objects<br>
+ * <br>
+ * Can also be created with {@link JsonMessageConverter#options()}
  *
  * @author Janmm14
+ * @see #hover
+ * @see #suggest
+ * @see #run
+ * @see #link
+ * @see #translateAmp
+ * @see #mineDownSupport
+ * @see #create()
  * @since v1.0-SNAPSHOT
  */
+@Getter
+@Setter
+@Accessors(fluent = true, chain = true)
 @SuppressWarnings("unused")
 public final class JsonMessageOptions {
 
+	/**
+	 * whether the hover effect is activated, default is {@code true}
+	 */
 	private boolean hover = true;
+	/**
+	 * whether suggesting a command or chat text on click is allowed, default is {@code true}
+	 */
 	private boolean suggest = true;
+	/**
+	 * whether running a command or sending a chat message on click is allowed, default is {@code true}
+	 */
 	private boolean run = true;
+	/**
+	 * whether embed links is allowed, default is {@code true}
+	 */
 	private boolean link = true;
-
 	/**
-	 * @return the current state whether hover effect is allowed or not
+	 * whether color codes with {@code &} will be translated, default is {@code true}
 	 */
-	public boolean hover() {
-		return hover;
-	}
-
+	private boolean translateAmp = true;
 	/**
-	 * @return the current state whether suggesting a command or chat text on click is allowed or not
+	 * whether <a href="https://github.com/Phoenix616/MineDown">MineDown format</a> is supported, default is {@code true}<br>
+	 * MineDown format must start with {@code [md]}, if minedown format is detected, jmm format will not be parsed and the other options are ignored!
 	 */
-	public boolean suggest() {
-		return suggest;
-	}
-
-	/**
-	 * @return the current state whether running a command or sending a chat message on click is allowed or not
-	 */
-	public boolean run() {
-		return run;
-	}
-
-	/**
-	 * @return the current state whether to embed links is allowed or not
-	 */
-	public boolean link() {
-		return link;
-	}
-
-	/**
-	 * set whether the hover effect is activated, default is {@code true}
-	 *
-	 * @param hover the new activity state of the hover option
-	 * @return {@code this} object for chaining
-	 */
-	public JsonMessageOptions hover(boolean hover) {
-		this.hover = hover;
-		return this;
-	}
-
-	/**
-	 * set whether the allowing to suggest a command or chat on click is activated, default is {@code true}
-	 *
-	 * @param suggest the new activity state of the suggest option
-	 * @return {@code this} object for chaining
-	 */
-	public JsonMessageOptions suggest(boolean suggest) {
-		this.suggest = suggest;
-		return this;
-	}
-
-	/**
-	 * set whether the allowing to run a command or chat on click is activated, default is {@code true}
-	 *
-	 * @param run the new activity state of the run option
-	 * @return {@code this} object for chaining
-	 */
-	public JsonMessageOptions run(boolean run) {
-		this.run = run;
-		return this;
-	}
-
-	/**
-	 * set whether the availability to embed a link is activated, default is {@code true}
-	 *
-	 * @param link the new activity state of the link option
-	 * @return {@code this} object for chaining
-	 */
-	public JsonMessageOptions link(boolean link) {
-		this.link = link;
-		return this;
-	}
+	private boolean mineDownSupport = true;
 
 	/**
 	 * @return a newly created {@link JsonMessageConverter} if at least one option is changed from default, otherwise it returns {@link JsonMessageConverter#DEFAULT}
 	 */
 	public JsonMessageConverter create() {
-		if (hover && run && suggest && link) {
+		if (hover && run && suggest && link && translateAmp && mineDownSupport) {
 			return JsonMessageConverter.DEFAULT;
 		}
-		return new JsonMessageConverter(hover, run, suggest, link);
+		return new JsonMessageConverter(hover, run, suggest, link, translateAmp, mineDownSupport);
 	}
 }

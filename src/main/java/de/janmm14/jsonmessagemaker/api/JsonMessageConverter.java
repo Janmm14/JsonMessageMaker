@@ -1,28 +1,34 @@
 package de.janmm14.jsonmessagemaker.api;
 
+import de.themoep.minedown.MineDown;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 /**
  * Basic class for conversion of strings to JsonMessages<br>
  * Class contains options of enabled features, for more information about these see {@link JsonMessageOptions}<br>
- * Objct creation is handled by {@link JsonMessageOptions}
+ * Object creation is handled by {@link JsonMessageOptions}
  *
  * @author Janmm14
  * @since v1.0-SNAPSHOT
+ * @see #convert(String) 
  */
+@Getter
 @SuppressWarnings("unused")
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public final class JsonMessageConverter {
@@ -30,14 +36,35 @@ public final class JsonMessageConverter {
 	/**
 	 * the converter with the default options, for more information see {@link JsonMessageOptions}
 	 */
-	public static final JsonMessageConverter DEFAULT = new JsonMessageConverter(true, true, true, true);
+	public static final JsonMessageConverter DEFAULT = new JsonMessageConverter(true, true, true, true, true, true);
 	private static final Pattern JMM_PATTERN = Pattern.compile("\\[jmm\\|(.+?)\\](.+?)\\[\\/jmm\\]", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-	private static final Pattern ARG_SPLIT_PATTERN = Pattern.compile("|jmm|", Pattern.CASE_INSENSITIVE | Pattern.LITERAL);
+	private static final Pattern JMM_ARG_SPLIT_PATTERN = Pattern.compile("|jmm|", Pattern.CASE_INSENSITIVE | Pattern.LITERAL);
 
+	/**
+	 * whether the hover effect is activated, default is {@code true}
+	 */
 	private final boolean hover;
+	/**
+	 * whether suggesting a command or chat text on click is allowed, default is {@code true}
+	 */
 	private final boolean run;
+	/**
+	 * whether running a command or sending a chat message on click is allowed, default is {@code true}
+	 */
 	private final boolean suggest;
+	/**
+	 * whether embed links is allowed, default is {@code true}
+	 */
 	private final boolean link;
+	/**
+	 * whether color codes with {@code &} will be translated, default is {@code true}
+	 */
+	private final boolean translateAmp;
+	/**
+	 * whether <a href="https://github.com/Phoenix616/MineDown">MineDown format</a> is supported, default is {@code true}<br>
+	 * MineDown format must start with {@code [md]}, if minedown format is detected, jmm format will not be parsed and the other options are ignored!
+	 */
+	private final boolean mineDownSupport;
 
 	/**
 	 * Converts strings to a json message using net.md-5:bungeecord-chat and uses the set options
@@ -48,6 +75,16 @@ public final class JsonMessageConverter {
 	@NonNull
 	public BaseComponent[] convert(@NonNull String input) {
 		input = input.replace("\\n", "\n");
+		if (mineDownSupport && input.length() > 4 && input.charAt(0) == '[' && input.charAt(3) == ']') {
+			char c1 = input.charAt(1);
+			char c2 = input.charAt(2);
+			if ((c1 == 'm' || c1 == 'M') && (c2 == 'd' || c2 == 'D')) {
+				return MineDown.parse(input.substring(4));
+			}
+		}
+		if (translateAmp) {
+			input = ChatColor.translateAlternateColorCodes('&', input);
+		}
 		List<BaseComponent> components = new ArrayList<>();
 		final Matcher matcher = JMM_PATTERN.matcher(input);
 		int lastEnd = 0;
@@ -56,7 +93,7 @@ public final class JsonMessageConverter {
 			final String text = matcher.group(2);
 			final String before = input.substring(lastEnd, matcher.start());
 			components.addAll(Arrays.asList(TextComponent.fromLegacyText(before)));
-			final String[] args = ARG_SPLIT_PATTERN.split(argsStr);
+			final String[] args = JMM_ARG_SPLIT_PATTERN.split(argsStr);
 			final TextComponent txt = new TextComponent(TextComponent.fromLegacyText(text));
 			for (String arg : args) {
 				final int i = arg.indexOf('=');
@@ -91,9 +128,16 @@ public final class JsonMessageConverter {
 			lastEnd = matcher.end();
 		}
 		if (lastEnd < (input.length() - 1)) {
-			final String after = input.substring(lastEnd, input.length());
+			final String after = input.substring(lastEnd);
 			components.addAll(Arrays.asList(TextComponent.fromLegacyText(after)));
 		}
 		return components.toArray(new BaseComponent[0]);
+	}
+
+	/**
+	 * Returns a new {@linkplain JsonMessageOptions} instance
+	 */
+	public static JsonMessageOptions options() {
+		return new JsonMessageOptions();
 	}
 }
