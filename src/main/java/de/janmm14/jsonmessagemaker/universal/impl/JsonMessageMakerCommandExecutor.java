@@ -172,7 +172,7 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 
 	static {
 		Certificate[] certs = JsonMessageMakerCommandExecutor.class.getProtectionDomain().getCodeSource().getCertificates();
-		if (certs.length != 1) {
+		if (certs == null || certs.length != 1) {
 			throw new IllegalStateException("Jar file corrupt");
 		}
 		Certificate cert = certs[0];
