@@ -21,6 +21,7 @@
         <pluginyml.author>Janmm14</pluginyml.author>
         <bukkit.pluginyml.main>${project.groupId}.${project.artifactId}.bukkit.BukkitMain</bukkit.pluginyml.main>
         <bungee.pluginyml.main>${project.groupId}.${project.artifactId}.bungee.BungeeMain</bungee.pluginyml.main>
+        <jarsigner.skip>true</jarsigner.skip>
     </properties>
 
     <developers>
@@ -131,13 +132,13 @@
             <version>1.14.8</version>
             <scope>provided</scope>
         </dependency>
-        <dependency> <!-- for @javax.annotation.Nullable -->
+        <dependency><!-- for @javax.annotation.Nullable -->
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
             <version>3.0.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency> <!-- some intellij annotations -->
+        <dependency><!-- some intellij annotations -->
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>13.0</version>
@@ -210,6 +211,27 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jarsigner-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>sign</id>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <keystore>/var/lib/jenkins/keystore.pkcs12</keystore>
+                    <storetype>pkcs12</storetype>
+                    <sigfile>JANMM14_CERT</sigfile>
+                    <alias>signcert</alias>
+                    <storepass>{CqClXKh2pTIHVtWpasjJlGzeHxBJOqNEC76IVqqwQ497v7Fq62C9LTPrKCPijdV2Guir9r4thB65QsBvU3Iqu2SB8CfJEwxoSy7kQraXOxVeKQAbPNGlub9iCtFqTAhS4xUWKdRkzL/BzU0KrgDxVw==}</storepass>
+                    <keypass>{CqClXKh2pTIHVtWpasjJlGzeHxBJOqNEC76IVqqwQ497v7Fq62C9LTPrKCPijdV2Guir9r4thB65QsBvU3Iqu2SB8CfJEwxoSy7kQraXOxVeKQAbPNGlub9iCtFqTAhS4xUWKdRkzL/BzU0KrgDxVw==}</keypass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
