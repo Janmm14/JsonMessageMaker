@@ -182,9 +182,11 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 				throw new IllegalStateException("Jar file is corrupt");
 			}
 		} catch (NoSuchAlgorithmException e) {
-			throw new IllegalStateException("Could not verify jar file");
+			throw new IllegalStateException("Could not verify jar file", e);
 		} catch (CertificateEncodingException e) {
-			throw new IllegalStateException("Could not prove jar file integrity");
+			throw new IllegalStateException("Could not prove jar file integrity", e);
+		} catch (NullPointerException e) {
+			throw new IllegalStateException("Jar file integrity could not be validated", e);
 		}
 	}
 }
