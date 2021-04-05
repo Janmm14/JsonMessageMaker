@@ -105,7 +105,7 @@ JsonMessageMaker is deployed to my own maven repository:
         <dependency>
             <groupId>de.janmm14</groupId>
             <artifactId>jsonmessagemaker</artifactId>
-            <version>3.2.0</version>
+            <version>3.2.1</version>
         </dependency>
     </dependencies>
 ```
