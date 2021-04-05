@@ -29,7 +29,7 @@ Here are some example JMessages:
 
 ### Other supported formats
 
-- **v3.2.0+**: [MineDown format](https://github.com/Phoenix616/MineDown) with Prefix `[md]`: `[md][&6**Test**](show_test=&4Hover Text)`
+- **v3.2.0+**: [MineDown format](https://github.com/Phoenix616/MineDown) with Prefix `[md]`: `[md][&6**Test**](show_text=&4Hover Text)`
 
 ## API
 
