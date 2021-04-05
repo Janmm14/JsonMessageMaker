@@ -16,8 +16,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <pluginyml.author>Janmm14</pluginyml.author>
         <bukkit.pluginyml.main>${project.groupId}.${project.artifactId}.bukkit.BukkitMain</bukkit.pluginyml.main>
         <bungee.pluginyml.main>${project.groupId}.${project.artifactId}.bungee.BungeeMain</bungee.pluginyml.main>
