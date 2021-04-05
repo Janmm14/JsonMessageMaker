@@ -193,6 +193,28 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestSections>
+                            <manifestSection>
+                                <name>de/janmm14/jsonmessagemaker/</name>
+                                <manifestEntries>
+                                    <Sealed>true</Sealed>
+                                </manifestEntries>
+                            </manifestSection>
+                        </manifestSections>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.4</version>
                 <configuration>
@@ -202,6 +224,7 @@
                             <shadedPattern>de.janmm14.jsonmessagemaker.libs.minedown</shadedPattern>
                         </relocation>
                     </relocations>
+                    <keepDependenciesWithProvidedScope>true</keepDependenciesWithProvidedScope>
                 </configuration>
                 <executions>
                     <execution>
