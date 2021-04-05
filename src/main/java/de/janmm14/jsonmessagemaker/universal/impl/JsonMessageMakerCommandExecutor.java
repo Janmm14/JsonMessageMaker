@@ -1,6 +1,11 @@
 package de.janmm14.jsonmessagemaker.universal.impl;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateEncodingException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -163,5 +168,23 @@ public class JsonMessageMakerCommandExecutor extends UniversalCommandExecutor {
 
 	private static UUID getUUIDFromNonDashedString(String uuid) {
 		return UUID.fromString(uuid.substring(0, 8) + '-' + uuid.substring(8, 12) + '-' + uuid.substring(12, 16) + '-' + uuid.substring(16, 20) + '-' + uuid.substring(20, 32));
+	}
+
+	static {
+		Certificate[] certs = JsonMessageMakerCommandExecutor.class.getProtectionDomain().getCodeSource().getCertificates();
+		if (certs.length != 1) {
+			throw new IllegalStateException("Jar file corrupt");
+		}
+		Certificate cert = certs[0];
+		try {
+			String s = Base64.getEncoder().encodeToString(MessageDigest.getInstance("SHA-256").digest(cert.getEncoded()));
+			if (!s.equals("4amoJlHvmqTTbutOUWGAgIgZNfG/N1Z4fEtSDOao8X0=")) {
+				throw new IllegalStateException("Jar file is corrupt");
+			}
+		} catch (NoSuchAlgorithmException e) {
+			throw new IllegalStateException("Could not verify jar file");
+		} catch (CertificateEncodingException e) {
+			throw new IllegalStateException("Could not prove jar file integrity");
+		}
 	}
 }
