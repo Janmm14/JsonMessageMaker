@@ -27,6 +27,10 @@ Here are some example JMessages:
 - `[jmm|hover=runs /list|jmm|run=/list]§erun §c/list[/jmm]`
 - `[jmm|hover=opens google|jmm|link=http://www.google.de]google§blink[/jmm]`
 
+### Other supported formats
+
+- **v3.2.0+**: [MineDown format](https://github.com/Phoenix616/MineDown) with Prefix `[md]`: `[md][&6**Test**](show_test=&4Hover Text)`
+
 ## API
 
 The base feature of JsonMessageMaker is to provide an API which other plugins can use to convert for example configuration strings using the JMessage format to an array of BaseComponents, ready to get sent via the spigot or bungee api.
@@ -37,10 +41,17 @@ Baisc API usage:
 BaseComponent[] components = JsonMessageConverter.DEFAULT.convert(yourJMessage);
 ```
 
-The API provides the option to disable certain features of the jmessage format. The default converter (see above) has all features enabled. If you want to havecertain features disabled, you need to ccreate your own JsonMessageConverter through the JsonMesssageOption class.
+The API provides the option to disable certain features of the jmessage format. The default converter (see above) and the default JsonMessageOptions class have all features enabled. If you want to have certain features disabled, you need to create your own JsonMessageConverter class, for example with disabled MineDown format support:
 
 ```java
-JsonMessageConverter converter = new JsonMessageOptions().suggest(true).run(true).link(true).hover(true).create();
+JsonMessageConverter converter = JsonMessageConverter.options()
+    .suggest(true) // By default all options are enabled, they are only set to
+    .run(true)     // true here for demonstration purposes.
+    .link(true)
+    .hover(true)
+    .translateAmp(true)
+    .mineDownSupport(false)
+    .create();
 ```
 
 ## Command
@@ -94,7 +105,7 @@ JsonMessageMaker is deployed to my own maven repository:
         <dependency>
             <groupId>de.janmm14</groupId>
             <artifactId>jsonmessagemaker</artifactId>
-            <version>3.1.0</version>
+            <version>3.2.0</version>
         </dependency>
     </dependencies>
 ```
