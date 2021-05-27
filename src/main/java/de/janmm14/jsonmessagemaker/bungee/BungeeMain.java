@@ -58,9 +58,9 @@ public class BungeeMain extends Plugin implements Listener {
 
 		final PluginManager pluginManager = proxy.getPluginManager();
 
-		pluginManager.registerCommand(this, new BungeeCommandBridge(proxy, commandExecutor, "bjsonmessagemaker", JMM_COMMAND_PERMISSION));
-		pluginManager.registerCommand(this, new BungeeCommandBridge(proxy, commandExecutor, "bjmm", JMM_COMMAND_PERMISSION));
-		pluginManager.registerCommand(this, new BungeeCommandBridge(proxy, commandExecutor, "bjmsg", JMM_COMMAND_PERMISSION));
+		pluginManager.registerCommand(this, new BungeeCommandBridge(commandExecutor, "bjsonmessagemaker", JMM_COMMAND_PERMISSION));
+		pluginManager.registerCommand(this, new BungeeCommandBridge(commandExecutor, "bjmm", JMM_COMMAND_PERMISSION));
+		pluginManager.registerCommand(this, new BungeeCommandBridge(commandExecutor, "bjmsg", JMM_COMMAND_PERMISSION));
 
 		pluginManager.registerListener(this, this);
 	}
