@@ -96,7 +96,7 @@ JsonMessageMaker is deployed to my own maven repository:
     <repositories>
         <repository>
             <id>janmm14-public</id>
-            <url>https://repo.janmm14.de/artifactory/public/</url>
+            <url>https://repo.janmm14.de/repository/public/</url>
         </repository>
     </repositories>
 ```
