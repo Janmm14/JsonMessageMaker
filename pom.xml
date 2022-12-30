@@ -70,11 +70,11 @@
     <distributionManagement>
         <repository>
             <id>janmm14-public-releases</id>
-            <url>https://repo.janmm14.de/artifactory/public-releases/</url>
+            <url>https://repo.janmm14.de/repository/public-releases/</url>
         </repository>
         <snapshotRepository>
             <id>janmm14-public-snapshots</id>
-            <url>https://repo.janmm14.de/artifactory/public-snapshots/</url>
+            <url>https://repo.janmm14.de/repository/public-snapshots/</url>
         </snapshotRepository>
         <site>
             <id>janmm14-ci</id>
